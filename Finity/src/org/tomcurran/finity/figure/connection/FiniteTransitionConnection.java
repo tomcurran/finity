@@ -3,6 +3,7 @@ package org.tomcurran.finity.figure.connection;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.tomcurran.finity.figure.AcceptStateDecorator;
 import org.tomcurran.finity.figure.FiniteStateFigure;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.fsm.FiniteTransition;
@@ -26,8 +27,8 @@ public class FiniteTransitionConnection extends LineConnection implements Observ
 
 	@Override
 	public boolean canConnect(Figure start, Figure end) {
-		return start instanceof FiniteStateFigure
-				&& end instanceof FiniteStateFigure;
+		return (start instanceof FiniteStateFigure || start instanceof AcceptStateDecorator)
+				&& (end instanceof FiniteStateFigure || end instanceof AcceptStateDecorator);
 	}
 
 	@Override

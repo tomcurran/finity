@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import org.tomcurran.finity.figure.CircleFigure;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
+import org.tomcurran.finity.tool.AcceptStateTool;
 import org.tomcurran.finity.tool.FiniteStateConnectionTool;
 import org.tomcurran.finity.tool.FiniteStateCreationTool;
 import org.tomcurran.finity.tool.FiniteStateLabelTool;
@@ -42,21 +43,24 @@ public class Finity extends DrawApplication {
 		tool = new TextTool(view(), new TextFigure());
 		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
 
-        tool = new ConnectionTool(view(), new LineConnection());
-        palette.add(createToolButton(IMAGES+"CONN", "Connection Tool", tool));
+		tool = new ConnectionTool(view(), new LineConnection());
+		palette.add(createToolButton(IMAGES + "CONN", "Connection Tool", tool));
 
 		tool = new ConnectionTool(view(), new ElbowConnection());
-		palette.add(createToolButton(IMAGES + "OCONN", "Elbow Connection Tool",
-				tool));
+		palette.add(createToolButton(IMAGES + "OCONN", "Elbow Connection Tool", tool));
 
 		tool = new FiniteStateCreationTool(view(), fsm);
 		palette.add(createToolButton(IMAGES + "RRECT", "Finite State Tool", tool));
 
 		tool = new FiniteStateLabelTool(view());
-		palette.add(createToolButton(IMAGES + "TEXT", "Finite State Label Tool", tool));
+		palette.add(createToolButton(IMAGES + "TEXT",
+				"Finite State Label Tool", tool));
 
-        tool = new FiniteStateConnectionTool(view(), fsm);
-        palette.add(createToolButton(IMAGES+"CONN", "Finite State Transition Tool", tool));
+		tool = new AcceptStateTool(view());
+		palette.add(createToolButton(IMAGES + "BORDDEC", "Accepting State Tool", tool));
+
+		tool = new FiniteStateConnectionTool(view(), fsm);
+		palette.add(createToolButton(IMAGES + "CONN", "Finite State Transition Tool", tool));
 	}
 
 	@Override
