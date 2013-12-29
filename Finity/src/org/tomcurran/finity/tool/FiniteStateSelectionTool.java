@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import org.tomcurran.finity.figure.AcceptStateDecorator;
 import org.tomcurran.finity.figure.FiniteStateFigure;
 import org.tomcurran.finity.figure.connection.FiniteTransitionConnection;
-import org.tomcurran.finity.fsm.FiniteState;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 
 import CH.ifa.draw.figure.DecoratorFigure;
@@ -35,14 +34,13 @@ public class FiniteStateSelectionTool extends SelectionTool {
 			printFSF(f);
 		} else if (f instanceof FiniteTransitionConnection) {
 			FiniteTransitionConnection ftFigure = (FiniteTransitionConnection) f;
-			System.out.printf("FiniteTransitionConnection: %s%n", ftFigure.getModel().getLabel());
+			System.out.printf("FiniteTransitionConnection: %s%n", ftFigure.getLabel());
 		}
 	}
 
 	private void printFSF(Figure f) {
 		FiniteStateFigure fsFigure = (FiniteStateFigure) f;
-		FiniteState fs = fsFigure.getModel();
-		System.out.printf("FiniteStateFigure: %s (accepting=%b)%n", fs.getLabel(), fs.isAccepting());
+		System.out.printf("FiniteStateFigure: %s (accepting=%b)%n", fsFigure.getLabel(), fsFigure.isAccepting());
 	}
 
 	@Override

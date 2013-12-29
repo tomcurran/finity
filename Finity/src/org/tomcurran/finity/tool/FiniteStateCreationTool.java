@@ -18,7 +18,10 @@ public class FiniteStateCreationTool extends CreationTool {
 
 	@Override
 	protected Figure createFigure() {
-		return new FiniteStateFigure(fsm);
+		FiniteStateFigure fsFigure = new FiniteStateFigure();
+		fsm.addNode(fsFigure);
+		fsFigure.addFigureChangeListener(fsm);
+		return fsFigure;
 	}
 
 }

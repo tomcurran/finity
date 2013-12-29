@@ -3,11 +3,8 @@ package org.tomcurran.finity.figure;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.Observable;
-import java.util.Observer;
 
 import org.tomcurran.finity.fsm.FiniteState;
-import org.tomcurran.finity.fsm.FiniteStateMachine;
 
 import CH.ifa.draw.connector.ChopEllipseConnector;
 import CH.ifa.draw.figure.GroupFigure;
@@ -15,21 +12,22 @@ import CH.ifa.draw.figure.TextFigure;
 import CH.ifa.draw.framework.Connector;
 import CH.ifa.draw.framework.Figure;
 
-public class FiniteStateFigure extends GroupFigure implements Observer {
+public class FiniteStateFigure extends GroupFigure implements FiniteState {
 
 	private static final long serialVersionUID = -2307029173581808928L;
+	private static int counter = 1;
 
-	private FiniteState model;
 	private TextFigure label;
+	private boolean accepting;
 
-	public FiniteStateFigure(FiniteStateMachine fsm) {
-		super();
-		model = new FiniteState();
-		model.addObserver(this);
-		fsm.addNode(model);
-		addFigureChangeListener(fsm);
+	public FiniteStateFigure() {
+		this(String.format("S%s", counter++), false);
+	}
+
+	public FiniteStateFigure(String label, boolean accepting) {
 		initialise();
-		updateLabel();
+		setLabel(label);
+		setAccepting(accepting);
 	}
 
 	private void initialise() {
@@ -70,21 +68,20 @@ public class FiniteStateFigure extends GroupFigure implements Observer {
 		return label;
 	}
 
-	public void setLabelText(String labelText) {
-		getLabelFigure().setText(labelText);
+	public String getLabel() {
+		return getLabelFigure().getText();
 	}
 
-	private void updateLabel() {
-		setLabelText(model.getLabel());
+	public void setLabel(String label) {
+		getLabelFigure().setText(label);
 	}
 
-	public FiniteState getModel() {
-		return model;
+	public void setAccepting(boolean accepting) {
+		this.accepting = accepting;
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		updateLabel();
+	public boolean isAccepting() {
+		return accepting;
 	}
 
 }

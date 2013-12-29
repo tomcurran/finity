@@ -21,11 +21,11 @@ public class AcceptStateTool extends ActionTool {
 		if (figure instanceof AcceptStateDecorator) {
 			FiniteStateFigure fsFigure = (FiniteStateFigure) ((DecoratorFigure) figure).peelDecoration();
 			drawing().replace(figure, fsFigure);
-			fsFigure.getModel().setAccepting(false);
+			fsFigure.setAccepting(false);
 		} else if (figure instanceof FiniteStateFigure) {
 			drawing().replace(figure, new AcceptStateDecorator(figure, Color.GREEN));
 			FiniteStateFigure fsFigure = (FiniteStateFigure) figure;
-			fsFigure.getModel().setAccepting(true);
+			fsFigure.setAccepting(true);
 		}
 	}
 

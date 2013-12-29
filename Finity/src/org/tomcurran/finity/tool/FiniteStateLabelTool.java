@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import org.tomcurran.finity.figure.FiniteStateFigure;
 
+import CH.ifa.draw.figure.DecoratorFigure;
 import CH.ifa.draw.figure.TextFigure;
 import CH.ifa.draw.framework.DrawingView;
 import CH.ifa.draw.framework.Figure;
@@ -87,6 +88,9 @@ public class FiniteStateLabelTool extends CreationTool {
 		TextHolder textHolder = null;
 
 		pressedFigure = drawing().findFigure(x, y);
+		if (pressedFigure instanceof DecoratorFigure) {
+			pressedFigure = ((DecoratorFigure) pressedFigure).peelDecoration();
+		}
 		if (pressedFigure instanceof FiniteStateFigure) {
 			textHolder = ((FiniteStateFigure) pressedFigure).getLabelFigure();
 			beginEdit(textHolder);

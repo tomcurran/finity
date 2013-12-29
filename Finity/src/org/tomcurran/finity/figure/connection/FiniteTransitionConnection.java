@@ -1,8 +1,5 @@
 package org.tomcurran.finity.figure.connection;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import org.tomcurran.finity.figure.AcceptStateDecorator;
 import org.tomcurran.finity.figure.FiniteStateFigure;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
@@ -11,17 +8,20 @@ import org.tomcurran.finity.fsm.FiniteTransition;
 import CH.ifa.draw.figure.connection.LineConnection;
 import CH.ifa.draw.framework.Figure;
 
-public class FiniteTransitionConnection extends LineConnection implements Observer {
+public class FiniteTransitionConnection extends LineConnection implements FiniteTransition {
 
 	private static final long serialVersionUID = -3487562166427672499L;
 
-	private FiniteTransition model;
 	private FiniteStateMachine fsm;
+	private char label;
 
 	public FiniteTransitionConnection(FiniteStateMachine fsm) {
+		this(fsm, '1');
+	}
+
+	public FiniteTransitionConnection(FiniteStateMachine fsm, char label) {
 		this.fsm = fsm;
-		model = new FiniteTransition();
-		model.addObserver(this);
+		setLabel(label);
 		setAttribute("ArrowMode", ARROW_TIP_END);
 	}
 
@@ -33,22 +33,22 @@ public class FiniteTransitionConnection extends LineConnection implements Observ
 
 	@Override
 	protected void handleConnect(Figure start, Figure end) {
-		fsm.addEdge(((FiniteStateFigure)start).getModel(), ((FiniteStateFigure)end).getModel(), model);
+		fsm.addEdge((FiniteStateFigure)start, (FiniteStateFigure)end, this);
 	}
 
 	@Override
 	protected void handleDisconnect(Figure start, Figure end) {
-		fsm.removeEdge(model);
+		fsm.removeEdge(this);
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+	public char getLabel() {
+		return label;
 	}
 
-	public FiniteTransition getModel() {
-		return model;
+	@Override
+	public void setLabel(char label) {
+		this.label = label;
 	}
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
-import org.tomcurran.finity.figure.FiniteStateFigure;
 import org.tomcurran.finity.graph.DiGraph;
 
 import CH.ifa.draw.framework.Figure;
@@ -52,6 +51,9 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> i
 		}
 		for (FiniteState state : getNodeSet()) {
 			Set<FiniteTransition> transitions = outgoingEdgesOf(state);
+			if (transitions.size() != alphabet.length()) {
+				return false;
+			}
 			Collection<FiniteTransition> checkTransitions = new ArrayList<FiniteTransition>();
 			for (FiniteTransition transition : transitions) {
 				if (!inAlphabet(transition.getLabel()) || checkTransitions.contains(transition)) {
@@ -71,8 +73,8 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> i
 	@Override
 	public void figureRemoved(FigureChangeEvent e) {
 		Figure figure = e.getFigure();
-		if (figure instanceof FiniteStateFigure) {
-			removeNode(((FiniteStateFigure)figure).getModel());
+		if (figure instanceof FiniteState) {
+			removeNode((FiniteState)figure);
 		}
 	}
 
