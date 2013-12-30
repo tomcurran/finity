@@ -16,17 +16,12 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> i
 	private String alphabet;
 
 	public FiniteStateMachine(String alphabet, FiniteState startState) {
-		super();
 		this.alphabet = alphabet;
 		this.startState = startState;
 	}
 
 	public FiniteStateMachine(String alphabet) {
 		this(alphabet, null);
-	}
-
-	public FiniteStateMachine() {
-		this("", null);
 	}
 
 	public FiniteState getStartState() {
