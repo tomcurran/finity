@@ -5,10 +5,10 @@ import javax.swing.JPanel;
 import org.tomcurran.finity.figure.CircleFigure;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.tool.AcceptStateTool;
-import org.tomcurran.finity.tool.FiniteStateConnectionTool;
 import org.tomcurran.finity.tool.FiniteStateCreationTool;
 import org.tomcurran.finity.tool.FiniteStateLabelTool;
 import org.tomcurran.finity.tool.FiniteStateSelectionTool;
+import org.tomcurran.finity.tool.FiniteTransitionTool;
 
 import CH.ifa.draw.application.DrawApplication;
 import CH.ifa.draw.figure.EllipseFigure;
@@ -53,14 +53,13 @@ public class Finity extends DrawApplication {
 		palette.add(createToolButton(IMAGES + "RRECT", "Finite State Tool", tool));
 
 		tool = new FiniteStateLabelTool(view());
-		palette.add(createToolButton(IMAGES + "TEXT",
-				"Finite State Label Tool", tool));
+		palette.add(createToolButton(IMAGES + "TEXT", "Finite State Label Tool", tool));
 
 		tool = new AcceptStateTool(view());
 		palette.add(createToolButton(IMAGES + "BORDDEC", "Accepting State Tool", tool));
 
-		tool = new FiniteStateConnectionTool(view(), fsm);
-		palette.add(createToolButton(IMAGES + "CONN", "Finite State Transition Tool", tool));
+		tool = new FiniteTransitionTool(view(), fsm);
+		palette.add(createToolButton(IMAGES + "CONN", "Finite Transition Tool", tool));
 	}
 
 	@Override

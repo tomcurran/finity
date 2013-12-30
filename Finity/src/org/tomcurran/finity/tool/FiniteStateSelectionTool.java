@@ -7,10 +7,9 @@ package org.tomcurran.finity.tool;
 
 import java.awt.event.MouseEvent;
 
-import org.tomcurran.finity.figure.AcceptStateDecorator;
-import org.tomcurran.finity.figure.FiniteStateFigure;
-import org.tomcurran.finity.figure.connection.FiniteTransitionConnection;
+import org.tomcurran.finity.fsm.FiniteState;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
+import org.tomcurran.finity.fsm.FiniteTransition;
 
 import CH.ifa.draw.figure.DecoratorFigure;
 import CH.ifa.draw.framework.DrawingView;
@@ -27,20 +26,16 @@ public class FiniteStateSelectionTool extends SelectionTool {
 	}
 
 	protected void inspectFigure(Figure f) {
-		if (f instanceof AcceptStateDecorator) {
+		if (f instanceof DecoratorFigure) {
 			f = ((DecoratorFigure) f).peelDecoration();
-			printFSF(f);
-		} else if (f instanceof FiniteStateFigure) {
-			printFSF(f);
-		} else if (f instanceof FiniteTransitionConnection) {
-			FiniteTransitionConnection ftFigure = (FiniteTransitionConnection) f;
-			System.out.printf("FiniteTransitionConnection: %s%n", ftFigure.getLabel());
 		}
-	}
-
-	private void printFSF(Figure f) {
-		FiniteStateFigure fsFigure = (FiniteStateFigure) f;
-		System.out.printf("FiniteStateFigure: %s (accepting=%b)%n", fsFigure.getLabel(), fsFigure.isAccepting());
+		if (f instanceof FiniteState) {
+			FiniteState fsFigure = (FiniteState) f;
+			System.out.printf("FiniteStateFigure: %s (accepting=%b)%n", fsFigure.getLabel(), fsFigure.isAccepting());
+		} else if (f instanceof FiniteTransition) {
+			FiniteTransition ftFigure = (FiniteTransition) f;
+			System.out.printf("FiniteTransition: %s%n", ftFigure.getLabel());
+		}
 	}
 
 	@Override

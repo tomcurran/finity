@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import org.tomcurran.finity.figure.FiniteStateFigure;
+import org.tomcurran.finity.figure.FiniteTransitionFigure;
 
 import CH.ifa.draw.figure.DecoratorFigure;
 import CH.ifa.draw.figure.TextFigure;
@@ -63,7 +64,7 @@ public class FiniteStateLabelTool extends CreationTool {
 			if (fTextField.getText().length() > 0) {
 				fTypingTarget.setText(fTextField.getText());
 			} else {
-				fTypingTarget.setText("S?");
+				fTypingTarget.setText("?");
 			}
 			fTypingTarget = null;
 			fTextField.endOverlay();
@@ -93,6 +94,9 @@ public class FiniteStateLabelTool extends CreationTool {
 		}
 		if (pressedFigure instanceof FiniteStateFigure) {
 			textHolder = ((FiniteStateFigure) pressedFigure).getLabelFigure();
+			beginEdit(textHolder);
+		} else if (pressedFigure instanceof FiniteTransitionFigure) {
+			textHolder = ((FiniteTransitionFigure) pressedFigure).getLabelFigure();
 			beginEdit(textHolder);
 		} else if (fTypingTarget != null) {
 			editor().toolDone();
