@@ -6,6 +6,7 @@ import org.tomcurran.finity.fsm.FiniteState;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.fsm.FiniteTransition;
 
+import CH.ifa.draw.figure.DecoratorFigure;
 import CH.ifa.draw.figure.connection.LineConnection;
 import CH.ifa.draw.framework.Figure;
 
@@ -24,6 +25,12 @@ public class FiniteTransitionConnection extends LineConnection {
 
 	@Override
 	public boolean canConnect(Figure start, Figure end) {
+		if (start instanceof DecoratorFigure) {
+			start = ((DecoratorFigure) start).peelDecoration();
+		}
+		if (end instanceof DecoratorFigure) {
+			end = ((DecoratorFigure) end).peelDecoration();
+		}
 		return (start instanceof FiniteState) && (end instanceof FiniteState);
 	}
 
