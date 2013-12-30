@@ -21,19 +21,18 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 	private static final long serialVersionUID = -3656819892973184317L;
 
 	private LineConnection connection;
-	private TextFigure label;
+	private TextFigure labelFigure;
 
 	public FiniteTransitionFigure(FiniteStateMachine fsm) {
-		super();
-		initialise(fsm);
+		this(fsm, '1');
 	}
 
-	private void initialise(FiniteStateMachine fsm) {
+	public FiniteTransitionFigure(FiniteStateMachine fsm, char label) {
 		connection = new FiniteTransitionConnection(fsm, this);
-		label = new TextFigure();
-		setLabel('1');
+		labelFigure = new TextFigure();
+		setLabel(label);
 		add(connection);
-		add(label);
+		add(labelFigure);
 		connection.addFigureChangeListener(this);
 	}
 
@@ -48,7 +47,7 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 						(startPoint.y + endPoint.y) / 2);
 				Point corner = new Point(middlePoint);
 				corner.translate(10, 10);
-				label.displayBox(middlePoint, corner);
+				labelFigure.displayBox(middlePoint, corner);
 			}
 		} else {
 			super.figureChanged(e);
@@ -56,7 +55,7 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 	}
 
 	public TextFigure getLabelFigure() {
-		return label;
+		return labelFigure;
 	}
 
 	@Override
@@ -69,12 +68,12 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 
 	@Override
 	public char getLabel() {
-		return label.getText().charAt(0);
+		return labelFigure.getText().charAt(0);
 	}
 
 	@Override
 	public void setLabel(char label) {
-		this.label.setText(String.valueOf(label));
+		this.labelFigure.setText(String.valueOf(label));
 	}
 
 

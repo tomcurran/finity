@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tomcurran.finity.figure.FiniteStateFigure;
-import org.tomcurran.finity.figure.connection.FiniteTransitionConnection;
+import org.tomcurran.finity.figure.FiniteTransitionFigure;
 import org.tomcurran.finity.fsm.FiniteState;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.fsm.FiniteTransition;
@@ -35,12 +35,12 @@ public class FiniteStateMachineTest {
 		fs1 = new FiniteStateFigure("S1", false);
 		fs2 = new FiniteStateFigure("S2", false);
 		fs3 = new FiniteStateFigure("S3", true);
-		ft1 = new FiniteTransitionConnection(fsm, '0');
-		ft2 = new FiniteTransitionConnection(fsm, '1');
-		ft3 = new FiniteTransitionConnection(fsm, '0');
-		ft4 = new FiniteTransitionConnection(fsm, '1');
-		ft5 = new FiniteTransitionConnection(fsm, '0');
-		ft6 = new FiniteTransitionConnection(fsm, '1');
+		ft1 = new FiniteTransitionFigure(fsm, '0');
+		ft2 = new FiniteTransitionFigure(fsm, '1');
+		ft3 = new FiniteTransitionFigure(fsm, '0');
+		ft4 = new FiniteTransitionFigure(fsm, '1');
+		ft5 = new FiniteTransitionFigure(fsm, '0');
+		ft6 = new FiniteTransitionFigure(fsm, '1');
 	}
 
 	@After
@@ -89,7 +89,7 @@ public class FiniteStateMachineTest {
 	public void testIsValid() {
 		setupFSM();
 		assertTrue(fsm.isValid());
-		fsm.addEdge(fs1, fs2, new FiniteTransitionConnection(fsm, '1'));
+		fsm.addEdge(fs1, fs2, new FiniteTransitionFigure(fsm, '1'));
 		assertFalse(fsm.isValid());
 	}
 
