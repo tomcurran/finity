@@ -45,6 +45,12 @@ public class FiniteTransitionConnection extends LineConnection {
 	}
 
 	@Override
+	public int findSegment(int x, int y) {
+		// prevents line becoming polyline
+		return -1;
+	}
+
+	@Override
 	public Rectangle displayBox() {
 		// prevent Enumeration error when adding connection to group
 		if (!points().hasMoreElements()) {
