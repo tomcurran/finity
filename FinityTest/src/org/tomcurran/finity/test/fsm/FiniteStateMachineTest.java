@@ -3,7 +3,6 @@ package org.tomcurran.finity.test.fsm;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -72,7 +71,16 @@ public class FiniteStateMachineTest {
 
 	@Test
 	public void testAcceptInput() {
-		fail("Not yet implemented");
+		// this fsm accepts input ending 10
+		setupFSM();
+		assertTrue(fsm.acceptInput("10"));
+		assertTrue(fsm.acceptInput("1010010110"));
+		assertTrue(fsm.acceptInput("00110100110"));
+		assertFalse(fsm.acceptInput("0"));
+		assertFalse(fsm.acceptInput("1"));
+		assertFalse(fsm.acceptInput("01"));
+		assertFalse(fsm.acceptInput("101011101001"));
+		assertFalse(fsm.acceptInput("01011010010101"));
 	}
 
 	@Test

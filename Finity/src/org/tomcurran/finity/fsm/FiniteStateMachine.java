@@ -33,7 +33,29 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> i
 	}
 
 	public boolean acceptInput(String input) {
-		return false;
+		for (char c : input.toCharArray()) {
+			if (!inAlphabet(c)) {
+				return false;
+			}
+		}
+		if (!isValid()) {
+			return false;
+		}
+		FiniteState end = traverse(input, startState);
+		return end.isAccepting();
+	}
+
+	private FiniteState traverse(String input, FiniteState state) {
+		if (input.length() == 0) {
+			return state;
+		}
+		Set<FiniteTransition> transitions = outgoingEdgesOf(state);
+		for (FiniteTransition transition : transitions) {
+			if (transition.getLabel() == input.charAt(0)) {
+				return traverse(input.substring(1), getEdgeTarget(transition));
+			}
+		}
+		return state;
 	}
 
 	public boolean inAlphabet(char c) {
