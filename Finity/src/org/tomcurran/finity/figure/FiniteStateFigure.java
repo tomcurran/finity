@@ -1,5 +1,6 @@
 package org.tomcurran.finity.figure;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -7,6 +8,7 @@ import java.awt.Rectangle;
 import org.tomcurran.finity.fsm.FiniteState;
 
 import CH.ifa.draw.connector.ChopEllipseConnector;
+import CH.ifa.draw.figure.EllipseFigure;
 import CH.ifa.draw.figure.GroupFigure;
 import CH.ifa.draw.figure.TextFigure;
 import CH.ifa.draw.framework.Connector;
@@ -15,6 +17,8 @@ import CH.ifa.draw.framework.Figure;
 public class FiniteStateFigure extends GroupFigure implements FiniteState {
 
 	private static final long serialVersionUID = -2307029173581808928L;
+	private static final int CIRCLE_SIZE = 50;
+
 	private static int counter = 1;
 
 	private TextFigure labelFigure;
@@ -32,18 +36,15 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 	}
 
 	private void initialise() {
-		final int CIRCLE_SIZE = 40;
-		final int HALF_CIRCLE_SIZE = (int) (CIRCLE_SIZE * 0.5);
-
-		circleFigure = new CircleFigure(
-				new Point(HALF_CIRCLE_SIZE, HALF_CIRCLE_SIZE),
+		circleFigure = new EllipseFigure(
+				new Point(0, 0),
 				new Point(CIRCLE_SIZE, CIRCLE_SIZE));
+		circleFigure.setAttribute("FillColor", Color.WHITE);
 		labelFigure = new TextFigure();
 		labelFigure.setAttribute("FontName", Font.SANS_SERIF);
 		labelFigure.setAttribute("FontStyle", Font.BOLD);
 		labelFigure.setAttribute("FontSize", 16);
 		labelFigure.setReadOnly(true);
-
 		add(circleFigure);
 		add(labelFigure);
 	}

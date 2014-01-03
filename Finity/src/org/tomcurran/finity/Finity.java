@@ -2,7 +2,6 @@ package org.tomcurran.finity;
 
 import javax.swing.JPanel;
 
-import org.tomcurran.finity.figure.CircleFigure;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.tool.AcceptStateTool;
 import org.tomcurran.finity.tool.FiniteStateCreationTool;
@@ -37,9 +36,6 @@ public class Finity extends DrawApplication {
 
 		Tool tool = new CreationTool(view(), new EllipseFigure());
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", tool));
-
-		tool = new CreationTool(view(), new CircleFigure());
-		palette.add(createToolButton(IMAGES + "DIAMOND", "Cirle Tool", tool));
 
 		tool = new TextTool(view(), new TextFigure());
 		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
