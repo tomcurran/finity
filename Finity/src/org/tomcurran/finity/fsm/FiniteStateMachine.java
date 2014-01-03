@@ -42,20 +42,23 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> i
 			return false;
 		}
 		FiniteState end = traverse(input, startState);
-		return end.isAccepting();
+		return end != null && end.isAccepting();
 	}
 
 	private FiniteState traverse(String input, FiniteState state) {
-		if (input.length() == 0) {
+		if (input.length() == 0 || state == null) {
 			return state;
 		}
-		Set<FiniteTransition> transitions = outgoingEdgesOf(state);
-		for (FiniteTransition transition : transitions) {
-			if (transition.getLabel() == input.charAt(0)) {
-				return traverse(input.substring(1), getEdgeTarget(transition));
+		return traverse(input.substring(1), transition(input.charAt(0), state));
+	}
+
+	private FiniteState transition(char input, FiniteState state) {
+		for (FiniteTransition transition : outgoingEdgesOf(state)) {
+			if (transition.getLabel() == input) {
+				return getEdgeTarget(transition);
 			}
 		}
-		return state;
+		return null;
 	}
 
 	public boolean inAlphabet(char c) {

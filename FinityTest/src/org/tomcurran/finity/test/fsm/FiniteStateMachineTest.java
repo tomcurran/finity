@@ -81,6 +81,8 @@ public class FiniteStateMachineTest {
 		assertFalse(fsm.acceptInput("01"));
 		assertFalse(fsm.acceptInput("101011101001"));
 		assertFalse(fsm.acceptInput("01011010010101"));
+		assertFalse(fsm.acceptInput("10A10"));
+		assertFalse(fsm.acceptInput("01A01"));
 	}
 
 	@Test
