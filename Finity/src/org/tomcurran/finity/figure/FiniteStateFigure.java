@@ -74,11 +74,17 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 
 	public void setLabel(String label) {
 		labelFigure.setText(label);
+		positionLabel();
+	}
+
+	private void positionLabel() {
 		Point circleCentre = circleFigure.center();
 		Rectangle labelDisplayBox = labelFigure.displayBox();
-		labelFigure.moveBy(
-				circleCentre.x - (labelDisplayBox.width / 2),
-				circleCentre.y - (labelDisplayBox.height / 2));
+		final int halfLabelWidth = labelDisplayBox.width / 2;
+		final int halfLabelHeight = labelDisplayBox.height / 2;
+		labelFigure.displayBox(
+				new Point(circleCentre.x - halfLabelWidth, circleCentre.y - halfLabelHeight),
+				new Point(circleCentre.x + halfLabelWidth, circleCentre.y + halfLabelHeight));
 	}
 
 	public void setAccepting(boolean accepting) {
