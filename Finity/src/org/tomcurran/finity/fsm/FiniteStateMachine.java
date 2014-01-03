@@ -74,17 +74,13 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> i
 			if (transitions.size() != alphabet.length()) {
 				return false;
 			}
-			Collection<FiniteTransition> checkTransitions = new ArrayList<FiniteTransition>();
+			Collection<Character> checked = new ArrayList<Character>();
 			for (FiniteTransition transition : transitions) {
-				if (!inAlphabet(transition.getLabel()) || checkTransitions.contains(transition)) {
+				char label = transition.getLabel();
+				if (!inAlphabet(label) || checked.contains(label)) {
 					return false;
 				}
-				for (FiniteTransition ct : checkTransitions) {
-					if (transition.getLabel() == ct.getLabel()) {
-						return false;
-					}
-				}
-				checkTransitions.add(transition);
+				checked.add(label);
 			}
 		}
 		return true;
