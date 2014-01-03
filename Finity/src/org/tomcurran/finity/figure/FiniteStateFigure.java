@@ -17,7 +17,8 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 	private static final long serialVersionUID = -2307029173581808928L;
 	private static int counter = 1;
 
-	private TextFigure label;
+	private TextFigure labelFigure;
+	private Figure circleFigure;
 	private boolean accepting;
 
 	public FiniteStateFigure() {
@@ -33,19 +34,18 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 	private void initialise() {
 		final int CIRCLE_SIZE = 40;
 		final int HALF_CIRCLE_SIZE = (int) (CIRCLE_SIZE * 0.5);
-		final int QUARTER_CIRCLE_SIZE = (int) (CIRCLE_SIZE * 0.25);
 
-		Figure cicle = new CircleFigure(new Point(HALF_CIRCLE_SIZE,
-				HALF_CIRCLE_SIZE), new Point(CIRCLE_SIZE, CIRCLE_SIZE));
-		label = new TextFigure();
-		label.moveBy(QUARTER_CIRCLE_SIZE, QUARTER_CIRCLE_SIZE);
-		label.setAttribute("FontName", Font.SANS_SERIF);
-		label.setAttribute("FontStyle", Font.BOLD);
-		label.setAttribute("FontSize", 16);
-		label.setReadOnly(true);
+		circleFigure = new CircleFigure(
+				new Point(HALF_CIRCLE_SIZE, HALF_CIRCLE_SIZE),
+				new Point(CIRCLE_SIZE, CIRCLE_SIZE));
+		labelFigure = new TextFigure();
+		labelFigure.setAttribute("FontName", Font.SANS_SERIF);
+		labelFigure.setAttribute("FontStyle", Font.BOLD);
+		labelFigure.setAttribute("FontSize", 16);
+		labelFigure.setReadOnly(true);
 
-		add(cicle);
-		add(label);
+		add(circleFigure);
+		add(labelFigure);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 	}
 
 	public TextFigure getLabelFigure() {
-		return label;
+		return labelFigure;
 	}
 
 	public String getLabel() {
@@ -73,7 +73,12 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 	}
 
 	public void setLabel(String label) {
-		getLabelFigure().setText(label);
+		labelFigure.setText(label);
+		Point circleCentre = circleFigure.center();
+		Rectangle labelDisplayBox = labelFigure.displayBox();
+		labelFigure.moveBy(
+				circleCentre.x - (labelDisplayBox.width / 2),
+				circleCentre.y - (labelDisplayBox.height / 2));
 	}
 
 	public void setAccepting(boolean accepting) {
