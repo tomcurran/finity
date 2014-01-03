@@ -7,10 +7,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import org.tomcurran.finity.figure.FiniteStateFigure;
-import org.tomcurran.finity.figure.FiniteTransitionFigure;
-
-import CH.ifa.draw.figure.DecoratorFigure;
 import CH.ifa.draw.figure.TextFigure;
 import CH.ifa.draw.framework.DrawingView;
 import CH.ifa.draw.framework.Figure;
@@ -19,12 +15,12 @@ import CH.ifa.draw.util.FloatingTextField;
 import CH.ifa.draw.util.TextHolder;
 
 // based on texttool
-public class FiniteStateLabelTool extends CreationTool {
+public abstract class LabelTextTool extends CreationTool {
 
 	private FloatingTextField fTextField;
 	private TextHolder fTypingTarget;
 
-	public FiniteStateLabelTool(DrawingView view) {
+	public LabelTextTool(DrawingView view) {
 		super(view, new TextFigure());
 	}
 
@@ -61,11 +57,7 @@ public class FiniteStateLabelTool extends CreationTool {
 
 	protected void endEdit() {
 		if (fTypingTarget != null) {
-			if (fTextField.getText().length() > 0) {
-				fTypingTarget.setText(fTextField.getText());
-			} else {
-				fTypingTarget.setText("?");
-			}
+			processText(fTextField.getText());
 			fTypingTarget = null;
 			fTextField.endOverlay();
 			view().checkDamage();
@@ -85,24 +77,17 @@ public class FiniteStateLabelTool extends CreationTool {
 	 */
 	@Override
 	public void mouseDown(MouseEvent e, int x, int y) {
-		Figure pressedFigure;
-		TextHolder textHolder = null;
-
-		pressedFigure = drawing().findFigure(x, y);
-		if (pressedFigure instanceof DecoratorFigure) {
-			pressedFigure = ((DecoratorFigure) pressedFigure).peelDecoration();
-		}
-		if (pressedFigure instanceof FiniteStateFigure) {
-			textHolder = ((FiniteStateFigure) pressedFigure).getLabelFigure();
-			beginEdit(textHolder);
-		} else if (pressedFigure instanceof FiniteTransitionFigure) {
-			textHolder = ((FiniteTransitionFigure) pressedFigure).getLabelFigure();
-			beginEdit(textHolder);
+		if (isTargetFigure(drawing().findFigure(x, y))) {
+			beginEdit(getTextHolder());
 		} else if (fTypingTarget != null) {
 			editor().toolDone();
 			endEdit();
 		}
 	}
+
+	public abstract boolean isTargetFigure(Figure pressedFigure);
+	public abstract TextHolder getTextHolder();
+	public abstract void processText(String text);
 
 	@Override
 	public void mouseDrag(MouseEvent e, int x, int y) {

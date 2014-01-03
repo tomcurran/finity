@@ -1,6 +1,8 @@
 package org.tomcurran.finity.figure;
 
+import java.awt.Font;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.Vector;
 
 import org.tomcurran.finity.figure.connection.FiniteTransitionConnection;
@@ -30,6 +32,9 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 	public FiniteTransitionFigure(FiniteStateMachine fsm, char label) {
 		connection = new FiniteTransitionConnection(fsm, this);
 		labelFigure = new TextFigure();
+		labelFigure.setAttribute("FontName", Font.SANS_SERIF);
+		labelFigure.setAttribute("FontStyle", Font.BOLD);
+		labelFigure.setAttribute("FontSize", 16);
 		setLabel(label);
 		add(connection);
 		add(labelFigure);
@@ -39,18 +44,25 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 	@Override
 	public void figureChanged(FigureChangeEvent e) {
 		if (e.getFigure() == connection) {
-			Point startPoint = startPoint();
-			Point endPoint = endPoint();
-			if (startPoint != null & endPoint != null) {
-				Point middlePoint = new Point(
-						(startPoint.x + endPoint.x) / 2,
-						(startPoint.y + endPoint.y) / 2);
-				Point corner = new Point(middlePoint);
-				corner.translate(10, 10);
-				labelFigure.displayBox(middlePoint, corner);
-			}
+			positionLabel();
 		} else {
 			super.figureChanged(e);
+		}
+	}
+
+	private void positionLabel() {
+		Point startPoint = startPoint();
+		Point endPoint = endPoint();
+		if (startPoint != null & endPoint != null) {
+			Point middleConnection = new Point(
+					(startPoint.x + endPoint.x) / 2,
+					(startPoint.y + endPoint.y) / 2);
+			Rectangle labelDisplayBox = labelFigure.displayBox();
+			final int halfLabelWidth = labelDisplayBox.width / 2;
+			final int halfLabelHeight = labelDisplayBox.height / 2;
+			labelFigure.displayBox(
+					new Point(middleConnection.x - halfLabelWidth, middleConnection.y - halfLabelHeight),
+					new Point(middleConnection.x + halfLabelWidth, middleConnection.y + halfLabelHeight));
 		}
 	}
 

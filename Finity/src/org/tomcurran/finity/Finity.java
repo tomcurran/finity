@@ -8,6 +8,7 @@ import org.tomcurran.finity.tool.AcceptStateTool;
 import org.tomcurran.finity.tool.FiniteStateCreationTool;
 import org.tomcurran.finity.tool.FiniteStateLabelTool;
 import org.tomcurran.finity.tool.FiniteStateSelectionTool;
+import org.tomcurran.finity.tool.FiniteTransitionLabelTool;
 import org.tomcurran.finity.tool.FiniteTransitionTool;
 
 import CH.ifa.draw.application.DrawApplication;
@@ -54,6 +55,9 @@ public class Finity extends DrawApplication {
 
 		tool = new FiniteStateLabelTool(view());
 		palette.add(createToolButton(IMAGES + "TEXT", "Finite State Label Tool", tool));
+
+		tool = new FiniteTransitionLabelTool(view());
+		palette.add(createToolButton(IMAGES + "TEXT", "Finite Transition Label Tool", tool));
 
 		tool = new AcceptStateTool(view());
 		palette.add(createToolButton(IMAGES + "BORDDEC", "Accepting State Tool", tool));
