@@ -9,6 +9,7 @@ import org.tomcurran.finity.tool.FiniteStateLabelTool;
 import org.tomcurran.finity.tool.FiniteStateSelectionTool;
 import org.tomcurran.finity.tool.FiniteTransitionLabelTool;
 import org.tomcurran.finity.tool.FiniteTransitionTool;
+import org.tomcurran.finity.tool.StartStateTool;
 
 import CH.ifa.draw.application.DrawApplication;
 import CH.ifa.draw.figure.EllipseFigure;
@@ -49,6 +50,9 @@ public class Finity extends DrawApplication {
 		tool = new FiniteStateCreationTool(view(), fsm);
 		palette.add(createToolButton(IMAGES + "RRECT", "Finite State Tool", tool));
 
+		tool = new FiniteTransitionTool(view(), fsm);
+		palette.add(createToolButton(IMAGES + "CONN", "Finite Transition Tool", tool));
+
 		tool = new FiniteStateLabelTool(view());
 		palette.add(createToolButton(IMAGES + "TEXT", "Finite State Label Tool", tool));
 
@@ -58,8 +62,8 @@ public class Finity extends DrawApplication {
 		tool = new AcceptStateTool(view());
 		palette.add(createToolButton(IMAGES + "BORDDEC", "Accepting State Tool", tool));
 
-		tool = new FiniteTransitionTool(view(), fsm);
-		palette.add(createToolButton(IMAGES + "CONN", "Finite Transition Tool", tool));
+		tool = new StartStateTool(view(), fsm);
+		palette.add(createToolButton(IMAGES + "BORDDEC", "Start State Tool", tool));
 	}
 
 	@Override
