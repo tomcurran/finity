@@ -22,10 +22,6 @@ public class AcceptStateDecorator extends DecoratorFigure {
 		this.colour = colour;
 	}
 
-	public AcceptStateDecorator(Color colour) {
-		this.colour = colour;
-	}
-
 	@Override
 	public Rectangle displayBox() {
 		Rectangle r = fComponent.displayBox();
