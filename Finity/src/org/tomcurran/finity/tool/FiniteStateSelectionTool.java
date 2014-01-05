@@ -47,6 +47,10 @@ public class FiniteStateSelectionTool extends SelectionTool {
 				return;
 			}
 			System.out.printf("FiniteStateMachine: nodes=%d edges=%d%n", fsm.getNodeSet().size(), fsm.getEdgeSet().size());
+			FiniteState start = fsm.getStartState();
+			if (start != null) {
+				System.out.printf("\t- start label: %s%n", start.getLabel());
+			}
 		}
 		super.mouseDown(e, x, y);
 	}
