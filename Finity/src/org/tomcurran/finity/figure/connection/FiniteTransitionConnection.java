@@ -20,7 +20,7 @@ public class FiniteTransitionConnection extends LineConnection {
 	public FiniteTransitionConnection(FiniteStateMachine fsm, FiniteTransition ft) {
 		this.fsm = fsm;
 		this.ft = ft;
-		setAttribute("ArrowMode", ARROW_TIP_END);
+		setStartDecoration(null);
 	}
 
 	@Override
