@@ -6,11 +6,7 @@ import java.util.Set;
 
 import org.tomcurran.finity.graph.DiGraph;
 
-import CH.ifa.draw.framework.Figure;
-import CH.ifa.draw.framework.FigureChangeEvent;
-import CH.ifa.draw.framework.FigureChangeListener;
-
-public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> implements FigureChangeListener {
+public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> {
 
 	private FiniteState startState;
 	private String alphabet;
@@ -85,25 +81,5 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> i
 		}
 		return true;
 	}
-
-	@Override
-	public void figureRemoved(FigureChangeEvent e) {
-		Figure figure = e.getFigure();
-		if (figure instanceof FiniteState) {
-			removeNode((FiniteState)figure);
-		}
-	}
-
-	@Override
-	public void figureChanged(FigureChangeEvent e) {}
-
-	@Override
-	public void figureInvalidated(FigureChangeEvent e) {}
-
-	@Override
-	public void figureRequestRemove(FigureChangeEvent e) {}
-
-	@Override
-	public void figureRequestUpdate(FigureChangeEvent e) {}
 
 }
