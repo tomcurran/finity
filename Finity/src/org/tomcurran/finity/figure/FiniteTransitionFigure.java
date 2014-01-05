@@ -11,7 +11,6 @@ import org.tomcurran.finity.fsm.FiniteTransition;
 
 import CH.ifa.draw.figure.GroupFigure;
 import CH.ifa.draw.figure.TextFigure;
-import CH.ifa.draw.figure.connection.LineConnection;
 import CH.ifa.draw.framework.ConnectionFigure;
 import CH.ifa.draw.framework.Connector;
 import CH.ifa.draw.framework.Figure;
@@ -22,7 +21,7 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 
 	private static final long serialVersionUID = -3656819892973184317L;
 
-	private LineConnection connection;
+	private FiniteTransitionConnection connection;
 	private TextFigure labelFigure;
 
 	public FiniteTransitionFigure(FiniteStateMachine fsm) {
@@ -54,9 +53,7 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 		Point startPoint = startPoint();
 		Point endPoint = endPoint();
 		if (startPoint != null & endPoint != null) {
-			Point middleConnection = new Point(
-					(startPoint.x + endPoint.x) / 2,
-					(startPoint.y + endPoint.y) / 2);
+			Point middleConnection = connection.controlPoint();
 			Rectangle labelDisplayBox = labelFigure.displayBox();
 			final int halfLabelWidth = labelDisplayBox.width / 2;
 			final int halfLabelHeight = labelDisplayBox.height / 2;
