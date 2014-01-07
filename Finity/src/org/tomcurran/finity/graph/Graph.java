@@ -4,7 +4,6 @@ import java.util.Set;
 
 public interface Graph<N, E> {
 
-//    public Set<E> getAllEdges(N n1, N n2);
     public boolean addEdge(N n1, N n2, E e);
     public boolean addNode(N n);
 
@@ -16,10 +15,6 @@ public interface Graph<N, E> {
     public Set<E> getEdgesOf(N node);
     public Set<N> getNodeSet();
 
-//    public Set<E> removeAllEdges(N n1, N n2);
-//    public boolean removeAllEdges(Collection<? extends E> edges);
-//    public boolean removeAllNodes(Collection<? extends N> nodes);
-//    public E removeEdge(N n1, N n2);
     public boolean removeEdge(E e);
     public boolean removeNode(N n);
 

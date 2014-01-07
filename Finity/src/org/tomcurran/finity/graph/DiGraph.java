@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class DiGraph<N, E> extends AbstractGraph<N, E> implements DirectedGraph<N, E> {
+public class DiGraph<N, E> implements DirectedGraph<N, E> {
 
+	protected Set<N> nodeSet;
 	private Map<E, DiGraphEdge> edgeMap;
 
 	private class DiGraphEdge {
@@ -17,19 +18,42 @@ public class DiGraph<N, E> extends AbstractGraph<N, E> implements DirectedGraph<
 
 	public DiGraph() {
 		super();
+		nodeSet = new HashSet<N>();
 		edgeMap = new LinkedHashMap<E, DiGraphEdge>();
 	}
 
 	@Override
+	public boolean addNode(N n) {
+		return nodeSet.add(n);
+	}
+
+	@Override
+	public boolean containsNode(N n) {
+		return nodeSet.contains(n);
+	}
+
+	@Override
+	public Set<N> getNodeSet() {
+		return nodeSet;
+	}
+
+	@Override
+	public boolean removeNode(N n) {
+		return nodeSet.remove(n);
+	}
+
+	@Override
 	public boolean addEdge(N n1, N n2, E e) {
+		if (containsEdge(n1, n2)) {
+			return false;
+		}
 		addNode(n1);
 		addNode(n2);
 		DiGraphEdge edge = new DiGraphEdge();
 		edge.source = n1;
 		edge.target = n2;
 		edgeMap.put(e, edge);
-		// TODO give sensible return value
-		return false;
+		return true;
 	}
 
 	@Override
