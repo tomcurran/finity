@@ -36,12 +36,12 @@ public class FiniteTransitionConnection extends LineConnection {
 
 	@Override
 	protected void handleConnect(Figure start, Figure end) {
-		fsm.addEdge((FiniteState)start, (FiniteState)end, ft);
+		fsm.addTransition((FiniteState)start, (FiniteState)end, ft);
 	}
 
 	@Override
 	protected void handleDisconnect(Figure start, Figure end) {
-		fsm.removeEdge(ft);
+		fsm.removeTransition(ft);
 	}
 
 	@Override

@@ -22,8 +22,9 @@ public class FiniteStateCreationTool extends CreationTool implements FigureChang
 	@Override
 	protected Figure createFigure() {
 		FiniteStateFigure fsFigure = new FiniteStateFigure();
-		fsm.addNode(fsFigure);
+		fsm.addState(fsFigure);
 		fsFigure.addFigureChangeListener(this);
+		fsm.addObserver(fsFigure);
 		return fsFigure;
 	}
 
@@ -31,7 +32,7 @@ public class FiniteStateCreationTool extends CreationTool implements FigureChang
 	public void figureRemoved(FigureChangeEvent e) {
 		Figure figure = e.getFigure();
 		if (figure instanceof FiniteState) {
-			fsm.removeNode((FiniteState) figure);
+			fsm.removeState((FiniteState) figure);
 		}
 	}
 
