@@ -17,7 +17,7 @@ public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> {
 	private FiniteState startState;
 	private String alphabet;
 
-	public FiniteStateMachine() {
+	private FiniteStateMachine() {
 		this.alphabet = "";
 	}
 
