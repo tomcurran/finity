@@ -44,7 +44,7 @@ public class DiGraph<N, E> implements DirectedGraph<N, E> {
 
 	@Override
 	public boolean addEdge(N n1, N n2, E e) {
-		if (containsEdge(n1, n2)) {
+		if (containsEdge(e)) {
 			return false;
 		}
 		addNode(n1);
