@@ -46,20 +46,20 @@ public class FiniteStateMachineTest {
 		ft4.setLabel('1');
 		ft5.setLabel('0');
 		ft6.setLabel('1');
-		fsm.addEdge(fs1, fs1, ft1);
-		fsm.addEdge(fs1, fs2, ft2);
-		fsm.addEdge(fs2, fs3, ft3);
-		fsm.addEdge(fs2, fs2, ft4);
-		fsm.addEdge(fs3, fs1, ft5);
-		fsm.addEdge(fs3, fs2, ft6);
+		fsm.addTransition(fs1, fs1, ft1);
+		fsm.addTransition(fs1, fs2, ft2);
+		fsm.addTransition(fs2, fs3, ft3);
+		fsm.addTransition(fs2, fs2, ft4);
+		fsm.addTransition(fs3, fs1, ft5);
+		fsm.addTransition(fs3, fs2, ft6);
 		fsm.setStartState(fs1);
 	}
 
 	@Test
 	public void testSetGetStartState() {
-		fsm.addNode(fs1);
-		fsm.addNode(fs2);
-		fsm.addNode(fs3);
+		fsm.addState(fs1);
+		fsm.addState(fs2);
+		fsm.addState(fs3);
 		fsm.setStartState(fs1);
 		assertSame(fs1, fsm.getStartState());
 		fsm.setStartState(fs2);
@@ -96,7 +96,7 @@ public class FiniteStateMachineTest {
 	@Test
 	public void testIsValid() {
 		assertTrue(fsm.isValid());
-		fsm.addEdge(fs1, fs2, new FiniteTransitionFigure());
+		fsm.addTransition(fs1, fs2, new FiniteTransitionFigure());
 		assertFalse(fsm.isValid());
 	}
 

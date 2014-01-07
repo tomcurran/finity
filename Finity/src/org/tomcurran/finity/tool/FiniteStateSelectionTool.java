@@ -44,10 +44,14 @@ public class FiniteStateSelectionTool extends SelectionTool {
 				return;
 			}
 			FiniteStateMachine fsm = FiniteStateMachine.getInstance();
-			System.out.printf("FiniteStateMachine: nodes=%d edges=%d%n", fsm.getNodeSet().size(), fsm.getEdgeSet().size());
-			FiniteState start = fsm.getStartState();
+			System.out.printf("FiniteStateMachine: states=%d transitions=%d%n", fsm.getStateCount(), fsm.getTransitionCount());
+			FiniteState start = FiniteStateMachine.getInstance().getStartState();
 			if (start != null) {
 				System.out.printf("\t- start label: %s%n", start.getLabel());
+			}
+			FiniteState current = FiniteStateMachine.getInstance().getCurrentState();
+			if (current != null) {
+				System.out.printf("\t- current label: %s%n", current.getLabel());
 			}
 		}
 		super.mouseDown(e, x, y);

@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.tomcurran.finity.fsm.FiniteState;
+import org.tomcurran.finity.fsm.FiniteStateMachine;
 
 import CH.ifa.draw.connector.ChopEllipseConnector;
 import CH.ifa.draw.figure.EllipseFigure;
@@ -14,10 +17,11 @@ import CH.ifa.draw.figure.TextFigure;
 import CH.ifa.draw.framework.Connector;
 import CH.ifa.draw.framework.Figure;
 
-public class FiniteStateFigure extends GroupFigure implements FiniteState {
+public class FiniteStateFigure extends GroupFigure implements FiniteState, Observer {
 
 	private static final long serialVersionUID = -2307029173581808928L;
 	private static final int CIRCLE_SIZE = 50;
+	private static final Color FILL_COLOR = Color.WHITE;
 
 	private static int counter = 1;
 
@@ -39,7 +43,7 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 		circleFigure = new EllipseFigure(
 				new Point(0, 0),
 				new Point(CIRCLE_SIZE, CIRCLE_SIZE));
-		circleFigure.setAttribute("FillColor", Color.WHITE);
+		circleFigure.setAttribute("FillColor", FILL_COLOR);
 		labelFigure = new TextFigure();
 		labelFigure.setAttribute("FontName", Font.SANS_SERIF);
 		labelFigure.setAttribute("FontStyle", Font.BOLD);
@@ -94,6 +98,21 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState {
 
 	public boolean isAccepting() {
 		return accepting;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o instanceof FiniteStateMachine) {
+			FiniteStateMachine fsm = (FiniteStateMachine) o;
+			FiniteState currentState = fsm.getCurrentState();
+			final Color currentColor = new Color(0x3366FF);
+			Color c = ((Color)circleFigure.getAttribute("FillColor"));
+			if (currentState == this && !c.equals(currentColor)) {
+				circleFigure.setAttribute("FillColor", currentColor);
+			} else if ((currentState == null || currentState != this) && !c.equals(FILL_COLOR)) {
+				circleFigure.setAttribute("FillColor", FILL_COLOR);
+			}
+		}
 	}
 
 }
