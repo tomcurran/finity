@@ -15,11 +15,9 @@ public class StartStateConnection extends LineConnection {
 
 	private static final long serialVersionUID = 284491772436946094L;
 
-	private FiniteStateMachine fsm;
 	private DrawingView view;
 
-	public StartStateConnection(DrawingView view, FiniteStateMachine fsm) {
-		this.fsm = fsm;
+	public StartStateConnection(DrawingView view) {
 		this.view = view;
 		setAttribute("ArrowMode", ARROW_TIP_END);
 	}
@@ -38,11 +36,11 @@ public class StartStateConnection extends LineConnection {
 	@Override
 	protected void handleConnect(Figure start, Figure end) {
 		removeStartConnections();
-		fsm.setStartState((FiniteState) end);
+		FiniteStateMachine.getInstance().setStartState((FiniteState) end);
 	}
 
 	private void removeStartConnections() {
-		if (fsm.getStartState() != null) {
+		if (FiniteStateMachine.getInstance().getStartState() != null) {
 			Enumeration<Figure> figures = view.drawing().figures();
 			while (figures.hasMoreElements()) {
 				Figure figure = figures.nextElement();
@@ -55,7 +53,7 @@ public class StartStateConnection extends LineConnection {
 
 	@Override
 	protected void handleDisconnect(Figure start, Figure end) {
-		fsm.setStartState(null);
+		FiniteStateMachine.getInstance().setStartState(null);
 	}
 
 	@Override

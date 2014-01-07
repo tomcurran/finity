@@ -8,16 +8,21 @@ import org.tomcurran.finity.graph.DiGraph;
 
 public class FiniteStateMachine extends DiGraph<FiniteState, FiniteTransition> {
 
+	private static final FiniteStateMachine INSTANCE = new FiniteStateMachine();
+
+	public static FiniteStateMachine getInstance() {
+		return INSTANCE;
+	}
+
 	private FiniteState startState;
 	private String alphabet;
 
-	public FiniteStateMachine(String alphabet, FiniteState startState) {
-		this.alphabet = alphabet;
-		this.startState = startState;
+	public FiniteStateMachine() {
+		this.alphabet = "";
 	}
 
-	public FiniteStateMachine(String alphabet) {
-		this(alphabet, null);
+	public void setAlphabet(String alphabet) {
+		this.alphabet = alphabet;
 	}
 
 	public FiniteState getStartState() {

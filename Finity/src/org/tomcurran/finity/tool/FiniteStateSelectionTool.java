@@ -18,11 +18,8 @@ import CH.ifa.draw.tool.SelectionTool;
 
 public class FiniteStateSelectionTool extends SelectionTool {
 
-	private FiniteStateMachine fsm;
-
-	public FiniteStateSelectionTool(DrawingView view, FiniteStateMachine fsm) {
+	public FiniteStateSelectionTool(DrawingView view) {
 		super(view);
-		this.fsm = fsm;
 	}
 
 	protected void inspectFigure(Figure f) {
@@ -46,6 +43,7 @@ public class FiniteStateSelectionTool extends SelectionTool {
 				inspectFigure(figure);
 				return;
 			}
+			FiniteStateMachine fsm = FiniteStateMachine.getInstance();
 			System.out.printf("FiniteStateMachine: nodes=%d edges=%d%n", fsm.getNodeSet().size(), fsm.getEdgeSet().size());
 			FiniteState start = fsm.getStartState();
 			if (start != null) {

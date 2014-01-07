@@ -2,15 +2,15 @@ package org.tomcurran.finity;
 
 import javax.swing.JPanel;
 
+import org.tomcurran.finity.figure.FiniteTransitionFigure;
 import org.tomcurran.finity.figure.StartMarkerFigure;
+import org.tomcurran.finity.figure.connection.StartStateConnection;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.tool.AcceptStateTool;
 import org.tomcurran.finity.tool.FiniteStateCreationTool;
 import org.tomcurran.finity.tool.FiniteStateLabelTool;
 import org.tomcurran.finity.tool.FiniteStateSelectionTool;
 import org.tomcurran.finity.tool.FiniteTransitionLabelTool;
-import org.tomcurran.finity.tool.FiniteTransitionTool;
-import org.tomcurran.finity.tool.StartConnectionTool;
 
 import CH.ifa.draw.application.DrawApplication;
 import CH.ifa.draw.figure.EllipseFigure;
@@ -25,11 +25,10 @@ import CH.ifa.draw.tool.TextTool;
 public class Finity extends DrawApplication {
 
 	private static final long serialVersionUID = 4056934322593307168L;
-	private FiniteStateMachine fsm;
 
 	public Finity() {
 		super("Finity");
-		fsm = new FiniteStateMachine("01");
+		FiniteStateMachine.getInstance().setAlphabet("01");
 	}
 
 	@Override
@@ -51,13 +50,13 @@ public class Finity extends DrawApplication {
 		tool = new CreationTool(view(), new StartMarkerFigure());
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Start Marker Tool", tool));
 
-		tool = new FiniteStateCreationTool(view(), fsm);
+		tool = new FiniteStateCreationTool(view());
 		palette.add(createToolButton(IMAGES + "RRECT", "Finite State Tool", tool));
 
-		tool = new FiniteTransitionTool(view(), fsm);
+		tool = new ConnectionTool(view(), new FiniteTransitionFigure());
 		palette.add(createToolButton(IMAGES + "CONN", "Finite Transition Tool", tool));
 
-		tool = new StartConnectionTool(view(), fsm);
+		tool = new ConnectionTool(view(), new StartStateConnection(view()));
 		palette.add(createToolButton(IMAGES + "OCONN", "Start Connection Tool", tool));
 
 		tool = new FiniteStateLabelTool(view());
@@ -72,7 +71,7 @@ public class Finity extends DrawApplication {
 
 	@Override
 	protected Tool createSelectionTool() {
-		return new FiniteStateSelectionTool(view(), fsm);
+		return new FiniteStateSelectionTool(view());
 	}
 
 	public static void main(String[] args) {

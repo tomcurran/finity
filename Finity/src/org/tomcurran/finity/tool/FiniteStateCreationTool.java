@@ -12,17 +12,14 @@ import CH.ifa.draw.tool.CreationTool;
 
 public class FiniteStateCreationTool extends CreationTool implements FigureChangeListener {
 
-	private FiniteStateMachine fsm;
-
-	public FiniteStateCreationTool(DrawingView view, FiniteStateMachine fsm) {
+	public FiniteStateCreationTool(DrawingView view) {
 		super(view);
-		this.fsm = fsm;
 	}
 
 	@Override
 	protected Figure createFigure() {
 		FiniteStateFigure fsFigure = new FiniteStateFigure();
-		fsm.addNode(fsFigure);
+		FiniteStateMachine.getInstance().addNode(fsFigure);
 		fsFigure.addFigureChangeListener(this);
 		return fsFigure;
 	}
@@ -31,7 +28,7 @@ public class FiniteStateCreationTool extends CreationTool implements FigureChang
 	public void figureRemoved(FigureChangeEvent e) {
 		Figure figure = e.getFigure();
 		if (figure instanceof FiniteState) {
-			fsm.removeNode((FiniteState) figure);
+			FiniteStateMachine.getInstance().removeNode((FiniteState) figure);
 		}
 	}
 

@@ -14,12 +14,10 @@ public class FiniteTransitionConnection extends LineConnection {
 
 	private static final long serialVersionUID = -3487562166427672499L;
 
-	private FiniteStateMachine fsm;
-	private FiniteTransition ft;
+	private FiniteTransition transition;
 
-	public FiniteTransitionConnection(FiniteStateMachine fsm, FiniteTransition ft) {
-		this.fsm = fsm;
-		this.ft = ft;
+	public FiniteTransitionConnection(FiniteTransition transition) {
+		this.transition = transition;
 		setStartDecoration(null);
 	}
 
@@ -36,12 +34,12 @@ public class FiniteTransitionConnection extends LineConnection {
 
 	@Override
 	protected void handleConnect(Figure start, Figure end) {
-		fsm.addEdge((FiniteState)start, (FiniteState)end, ft);
+		FiniteStateMachine.getInstance().addEdge((FiniteState)start, (FiniteState)end, transition);
 	}
 
 	@Override
 	protected void handleDisconnect(Figure start, Figure end) {
-		fsm.removeEdge(ft);
+		FiniteStateMachine.getInstance().removeEdge(transition);
 	}
 
 	@Override
