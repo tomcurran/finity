@@ -1,5 +1,6 @@
 package org.tomcurran.finity;
 
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import org.tomcurran.finity.figure.FiniteTransitionFigure;
@@ -13,14 +14,9 @@ import org.tomcurran.finity.tool.FiniteStateSelectionTool;
 import org.tomcurran.finity.tool.FiniteTransitionLabelTool;
 
 import CH.ifa.draw.application.DrawApplication;
-import CH.ifa.draw.figure.EllipseFigure;
-import CH.ifa.draw.figure.TextFigure;
-import CH.ifa.draw.figure.connection.ElbowConnection;
-import CH.ifa.draw.figure.connection.LineConnection;
 import CH.ifa.draw.framework.Tool;
 import CH.ifa.draw.tool.ConnectionTool;
 import CH.ifa.draw.tool.CreationTool;
-import CH.ifa.draw.tool.TextTool;
 
 public class Finity extends DrawApplication {
 
@@ -35,19 +31,7 @@ public class Finity extends DrawApplication {
 	protected void createTools(JPanel palette) {
 		super.createTools(palette);
 
-		Tool tool = new CreationTool(view(), new EllipseFigure());
-		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", tool));
-
-		tool = new TextTool(view(), new TextFigure());
-		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
-
-		tool = new ConnectionTool(view(), new LineConnection());
-		palette.add(createToolButton(IMAGES + "CONN", "Connection Tool", tool));
-
-		tool = new ConnectionTool(view(), new ElbowConnection());
-		palette.add(createToolButton(IMAGES + "OCONN", "Elbow Connection Tool", tool));
-
-		tool = new CreationTool(view(), new StartMarkerFigure());
+		Tool tool = new CreationTool(view(), new StartMarkerFigure());
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Start Marker Tool", tool));
 
 		tool = new FiniteStateCreationTool(view());
@@ -67,6 +51,13 @@ public class Finity extends DrawApplication {
 
 		tool = new AcceptStateTool(view());
 		palette.add(createToolButton(IMAGES + "BORDDEC", "Accepting State Tool", tool));
+	}
+
+	@Override
+	protected void createMenus(JMenuBar mb) {
+		mb.add(createFileMenu());		
+		mb.add(createEditMenu());
+		mb.add(createAlignmentMenu());
 	}
 
 	@Override
