@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.tomcurran.finity.figure.FiniteStateFigure;
@@ -30,23 +29,23 @@ public class FiniteStateMachineTest {
 
 	@Before
 	public void setUp() throws Exception {
-		fsm = new FiniteStateMachine(ALPHABET);
+		fsm = FiniteStateMachine.getInstance();
+		fsm.setAlphabet(ALPHABET);
 		fs1 = new FiniteStateFigure("S1", false);
 		fs2 = new FiniteStateFigure("S2", false);
 		fs3 = new FiniteStateFigure("S3", true);
-		ft1 = new FiniteTransitionFigure(fsm, '0');
-		ft2 = new FiniteTransitionFigure(fsm, '1');
-		ft3 = new FiniteTransitionFigure(fsm, '0');
-		ft4 = new FiniteTransitionFigure(fsm, '1');
-		ft5 = new FiniteTransitionFigure(fsm, '0');
-		ft6 = new FiniteTransitionFigure(fsm, '1');
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	private void setupFSM() {
+		ft1 = new FiniteTransitionFigure();
+		ft2 = new FiniteTransitionFigure();
+		ft3 = new FiniteTransitionFigure();
+		ft4 = new FiniteTransitionFigure();
+		ft5 = new FiniteTransitionFigure();
+		ft6 = new FiniteTransitionFigure();
+		ft1.setLabel('0');
+		ft2.setLabel('1');
+		ft3.setLabel('0');
+		ft4.setLabel('1');
+		ft5.setLabel('0');
+		ft6.setLabel('1');
 		fsm.addEdge(fs1, fs1, ft1);
 		fsm.addEdge(fs1, fs2, ft2);
 		fsm.addEdge(fs2, fs3, ft3);
@@ -72,7 +71,6 @@ public class FiniteStateMachineTest {
 	@Test
 	public void testAcceptInput() {
 		// this fsm accepts input ending 10
-		setupFSM();
 		assertTrue(fsm.acceptInput("10"));
 		assertTrue(fsm.acceptInput("1010010110"));
 		assertTrue(fsm.acceptInput("00110100110"));
@@ -97,9 +95,8 @@ public class FiniteStateMachineTest {
 
 	@Test
 	public void testIsValid() {
-		setupFSM();
 		assertTrue(fsm.isValid());
-		fsm.addEdge(fs1, fs2, new FiniteTransitionFigure(fsm, '1'));
+		fsm.addEdge(fs1, fs2, new FiniteTransitionFigure());
 		assertFalse(fsm.isValid());
 	}
 
