@@ -27,7 +27,6 @@ public class FSMSimulator implements Animatable {
 
 	public FSMSimulator(DrawingView view) {
 		this.view = view;
-		System.out.println(view);
 		inputString = null;
 		inputIndex = -1;
 	}
