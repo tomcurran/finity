@@ -45,16 +45,14 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 	}
 
 	private void positionLabel() {
-		Point startPoint = startPoint();
-		Point endPoint = endPoint();
-		if (startPoint != null & endPoint != null) {
-			Point middleConnection = connection.controlPoint();
+		Point controlPoint = connection.controlPoint();
+		if (controlPoint != null) {
 			Rectangle labelDisplayBox = labelFigure.displayBox();
 			final int halfLabelWidth = labelDisplayBox.width / 2;
 			final int halfLabelHeight = labelDisplayBox.height / 2;
 			labelFigure.displayBox(
-					new Point(middleConnection.x - halfLabelWidth, middleConnection.y - halfLabelHeight),
-					new Point(middleConnection.x + halfLabelWidth, middleConnection.y + halfLabelHeight));
+					new Point(controlPoint.x - halfLabelWidth, controlPoint.y - halfLabelHeight),
+					new Point(controlPoint.x + halfLabelWidth, controlPoint.y + halfLabelHeight));
 		}
 	}
 

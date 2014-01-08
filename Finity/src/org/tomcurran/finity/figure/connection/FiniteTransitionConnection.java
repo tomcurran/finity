@@ -17,6 +17,7 @@ import CH.ifa.draw.framework.Figure;
 public class FiniteTransitionConnection extends LineConnection {
 
 	private static final long serialVersionUID = -3487562166427672499L;
+	private static final int CONTROL_POINT_DISTANCE = 40;
 
 	private FiniteTransition transition;
 
@@ -62,12 +63,32 @@ public class FiniteTransitionConnection extends LineConnection {
 	}
 
 	public Point controlPoint() {
+		if (fPoints.size() < 2) {
+			return null;
+		}
+		Point p = fPoints.get(1);
+		return new Point(p.x, p.y);
+	}
+
+	@Override
+	public void endPoint(int x, int y) {
+		willChange();
+		Point end = new Point(x, y);
 		Point start = startPoint();
-		Point end = endPoint();
 		Point middle = new Point((start.x + end.x) / 2, (start.y + end.y) / 2);
-		Point control = new Point(middle);
-		control.translate(10, 10);
-		return control;
+		Point perpend = new Point(end.y - start.y, -(end.x - start.x));
+		double perpendLen = Math.sqrt((perpend.x * perpend.x) + (perpend.y * perpend.y));
+		Point control = perpendLen == 0 ? middle : new Point(
+						(int) (middle.x + ((perpend.x / perpendLen) * CONTROL_POINT_DISTANCE)),
+						(int) (middle.y + ((perpend.y / perpendLen) * CONTROL_POINT_DISTANCE)));
+		if (fPoints.size() < 2) {
+			fPoints.addElement(control);
+			fPoints.addElement(end);
+		} else {
+			fPoints.setElementAt(control, 1);
+			fPoints.setElementAt(end, 2);
+		}
+		changed();
 	}
 
 	@Override
@@ -75,10 +96,7 @@ public class FiniteTransitionConnection extends LineConnection {
 		g.setColor(getFrameColor());
 		Graphics2D g2 = (Graphics2D) g;
 		QuadCurve2D q = new QuadCurve2D.Float();
-		Point start = startPoint();
-		Point end = endPoint();
-		Point control = controlPoint();
-		q.setCurve(start.x, start.y, control.x, control.y, end.x, end.y);
+		q.setCurve(startPoint(), controlPoint(), endPoint());
 		g2.draw(q);
 		decorate(g);
 	}
