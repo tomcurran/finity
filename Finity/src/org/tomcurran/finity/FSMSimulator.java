@@ -42,7 +42,7 @@ public class FSMSimulator implements Animatable {
 			if (inputString == null) {
 				String input = (String)JOptionPane.showInputDialog(
 						(Component) view,
-						"Input a single state",
+						"Provide an input string",
 						"Finite State Machine Transition",
 						JOptionPane.OK_CANCEL_OPTION);
 				if (input == null) {
