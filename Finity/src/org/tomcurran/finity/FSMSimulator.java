@@ -32,13 +32,13 @@ public class FSMSimulator implements Animatable {
 	}
 
 	public void start() {
-//		if (!fsm.isValid()) {
-//			JOptionPane.showMessageDialog(
-//					this,
-//					"Finite State Machine is not in a valid state",
-//					"Machine State Error",
-//					JOptionPane.ERROR_MESSAGE);
-//		} else {
+		if (!FiniteStateMachine.getInstance().isValid()) {
+			JOptionPane.showMessageDialog(
+					(Component) view,
+					"Finite State Machine is not in a valid state",
+					"Machine State Error",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
 			if (inputString == null) {
 				String input = (String)JOptionPane.showInputDialog(
 						(Component) view,
@@ -55,7 +55,7 @@ public class FSMSimulator implements Animatable {
 			pauseMenu.setEnabled(true);
 			resetMenu.setEnabled(false);
 			startAnimation();
-//		}
+		}
 	}
 
 	public void pause() {
