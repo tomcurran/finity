@@ -12,6 +12,7 @@ import org.tomcurran.finity.tool.FiniteStateCreationTool;
 import org.tomcurran.finity.tool.FiniteStateLabelTool;
 import org.tomcurran.finity.tool.FiniteStateSelectionTool;
 import org.tomcurran.finity.tool.FiniteTransitionLabelTool;
+import org.tomcurran.finity.tool.SelfConnectionTool;
 
 import CH.ifa.draw.application.DrawApplication;
 import CH.ifa.draw.framework.Tool;
@@ -39,7 +40,7 @@ public class Finity extends DrawApplication {
 		tool = new FiniteStateCreationTool(view());
 		palette.add(createToolButton(IMAGES + "RRECT", "Finite State Tool", tool));
 
-		tool = new ConnectionTool(view(), new FiniteTransitionFigure());
+		tool = new SelfConnectionTool(view(), new FiniteTransitionFigure());
 		palette.add(createToolButton(IMAGES + "CONN", "Finite Transition Tool", tool));
 
 		tool = new ConnectionTool(view(), new StartStateConnection(view()));
