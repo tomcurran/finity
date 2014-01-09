@@ -1,10 +1,8 @@
 package org.tomcurran.finity.figure.connection;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.geom.QuadCurve2D;
 
 import org.tomcurran.finity.fsm.FiniteState;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
@@ -17,7 +15,8 @@ import CH.ifa.draw.framework.Figure;
 public class FiniteTransitionConnection extends LineConnection {
 
 	private static final long serialVersionUID = -3487562166427672499L;
-	private static final int CONTROL_POINT_DISTANCE = 40;
+
+	private ArcConnect arcConnect;
 
 	private FiniteTransition transition;
 
@@ -73,14 +72,19 @@ public class FiniteTransitionConnection extends LineConnection {
 	@Override
 	public void endPoint(int x, int y) {
 		willChange();
+		Figure startFigure = startFigure();
+		Figure endFigure = endFigure();
+		if (startFigure != null && endFigure != null && startFigure == endFigure) {
+			if (!(arcConnect instanceof SelfArConnect)) {
+				arcConnect = new SelfArConnect(this);
+			}
+		} else {
+			if (!(arcConnect instanceof StandardArcConnect)) {
+				arcConnect = new StandardArcConnect(this);
+			}
+		}
 		Point end = new Point(x, y);
-		Point start = startPoint();
-		Point middle = new Point((start.x + end.x) / 2, (start.y + end.y) / 2);
-		Point perpend = new Point(end.y - start.y, -(end.x - start.x));
-		double perpendLen = Math.sqrt((perpend.x * perpend.x) + (perpend.y * perpend.y));
-		Point control = perpendLen == 0 ? middle : new Point(
-						(int) (middle.x + ((perpend.x / perpendLen) * CONTROL_POINT_DISTANCE)),
-						(int) (middle.y + ((perpend.y / perpendLen) * CONTROL_POINT_DISTANCE)));
+		Point control = arcConnect.controlPoint();
 		if (fPoints.size() < 2) {
 			fPoints.addElement(control);
 			fPoints.addElement(end);
@@ -94,10 +98,7 @@ public class FiniteTransitionConnection extends LineConnection {
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(getFrameColor());
-		Graphics2D g2 = (Graphics2D) g;
-		QuadCurve2D q = new QuadCurve2D.Float();
-		q.setCurve(startPoint(), controlPoint(), endPoint());
-		g2.draw(q);
+		arcConnect.draw(g);
 		decorate(g);
 	}
 
