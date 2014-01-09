@@ -14,33 +14,38 @@ public class Geom {
 	}
 
 	public static Point perpendicular(Point start, Point end, int distance, boolean clockwise) {
-		Point2D p = normalise(perpendicular(start, end, clockwise));
-		return new Point(
-				(int)(start.x + (p.getX() * distance)),
-				(int)(start.y + (p.getY() * distance)));
+		return distance(start, normalise(negate(invert(diff(start, end)), clockwise)), distance);
 	}
 
-	public static Point2D normalise(Point2D p) {
+	public static Point extend(Point start, Point end, int distance) {
+		return distance(end, normalise(diff(start, end)), distance);
+	}
+
+	public static Point2D normalise(Point p) {
 		double norm = Math.sqrt((p.getX() * p.getX()) + (p.getY() * p.getY()));
 		return new Point2D.Double(p.getX() / norm, p.getY() / norm);
 	}
 
-	public static Point extend(Point start, Point end, int distance) {
-		Point2D p = normalise(new Point(end.x - start.x, end.y - start.y));
-		return new Point(
-				(int)(end.x + (p.getX() * distance)),
-				(int)(end.y + (p.getY() * distance)));
+	private static Point diff(Point p1, Point p2) {
+		return new Point(p2.x - p1.x, p2.y - p1.y);
 	}
 
-	private static Point perpendicular(Point p1, Point p2, boolean clockwise) {
-		int x = p2.y - p1.y;
-		int y = p2.x - p1.x;
+	private static Point invert(Point p) {
+		return new Point(p.y, p.x);
+	}
+
+	private static Point negate(Point p, boolean clockwise) {
 		if (clockwise) {
-			y = -y;
+			return new Point(p.x, -p.y);
 		} else {
-			x = -x;
+			return new Point(-p.x, p.y);
 		}
-		return new Point(x, y);
+	}
+
+	private static Point distance(Point p, Point2D n, int distance) {
+		return new Point(
+				(int)(p.x + (n.getX() * distance)),
+				(int)(p.y + (n.getY() * distance)));
 	}
 
 }
