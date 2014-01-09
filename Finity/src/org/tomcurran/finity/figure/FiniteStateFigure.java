@@ -7,10 +7,10 @@ import java.awt.Rectangle;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.tomcurran.finity.connector.StateConnector;
 import org.tomcurran.finity.fsm.FiniteState;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 
-import CH.ifa.draw.connector.ChopEllipseConnector;
 import CH.ifa.draw.figure.EllipseFigure;
 import CH.ifa.draw.figure.GroupFigure;
 import CH.ifa.draw.figure.TextFigure;
@@ -66,7 +66,7 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState, Obser
 
 	@Override
 	public Connector connectorAt(int x, int y) {
-		return new ChopEllipseConnector(this);
+		return new StateConnector(this);
 	}
 
 	public TextFigure getLabelFigure() {

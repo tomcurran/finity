@@ -74,14 +74,15 @@ public class FiniteTransitionConnection extends LineConnection {
 		willChange();
 		ensureArcState();
 		Point end = new Point(x, y);
-		Point control = arcConnect.controlPoint();
 		if (fPoints.size() < 2) {
-			fPoints.addElement(control);
+			fPoints.addElement(null);
 			fPoints.addElement(end);
 		} else {
-			fPoints.setElementAt(control, 1);
+			fPoints.setElementAt(null, 1);
 			fPoints.setElementAt(end, 2);
 		}
+		Point control = arcConnect.controlPoint();
+		fPoints.setElementAt(control, 1);
 		changed();
 	}
 

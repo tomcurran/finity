@@ -7,11 +7,9 @@ import java.awt.geom.CubicCurve2D;
 
 import org.tomcurran.finity.util.Geom;
 
-import CH.ifa.draw.framework.Figure;
-
 public class SelfArConnect implements ArcConnect {
 
-	private static final int CONTROL_POINT_DISTANCE = 40;
+	private static final int CONTROL_POINT_DISTANCE = 50;
 
 	private FiniteTransitionConnection connection;
 
@@ -21,22 +19,14 @@ public class SelfArConnect implements ArcConnect {
 
 	@Override
 	public Point controlPoint() {
-		Figure figure = connection.startFigure();
-		if (figure == null) {
-			figure = connection.endFigure();
+		Point start = connection.startPoint();
+		Point end = connection.endPoint();
+		Point middle = Geom.middle(start, end);
+		if (start.equals(end)) {
+			return middle;
+		} else {
+			return Geom.perpendicular(middle, end, CONTROL_POINT_DISTANCE, false);
 		}
-		Point figureCentre = figure.center();
-		Point connectionPoint = connectionPoint();
-		return Geom.extend(figureCentre, connectionPoint, CONTROL_POINT_DISTANCE);
-	}
-
-	private Point connectionPoint() {
-		if (connection.start() != null) {
-			return connection.startPoint();
-		} else if (connection.end() != null) {
-			return connection.endPoint();
-		}
-		return null;
 	}
 
 	@Override
@@ -44,9 +34,9 @@ public class SelfArConnect implements ArcConnect {
 		Graphics2D g2 = (Graphics2D) g;
 		CubicCurve2D c  = new CubicCurve2D.Float();
 		Point control = controlPoint();
-		Point connectionPoint = connectionPoint();
-		Point control1 = Geom.perpendicular(control, connectionPoint, CONTROL_POINT_DISTANCE);
-		Point control2 = Geom.perpendicular(control, connectionPoint, CONTROL_POINT_DISTANCE, false);
+		Point middle = Geom.middle(connection.startPoint(), connection.endPoint());
+		Point control1 = Geom.perpendicular(control, middle, CONTROL_POINT_DISTANCE);
+		Point control2 = Geom.perpendicular(control, middle, CONTROL_POINT_DISTANCE, false);
 		c.setCurve(connection.startPoint(), control1, control2, connection.endPoint());
 		g2.draw(c);
 	}
