@@ -45,7 +45,15 @@ public class FSMSimulator implements Animatable {
 						"Provide an input string",
 						"Finite State Machine Transition",
 						JOptionPane.OK_CANCEL_OPTION);
-				if (input == null) {
+				if (input == null || input.isEmpty()) {
+					return;
+				}
+				if (!FiniteStateMachine.getInstance().inAlphabet(input)) {
+					JOptionPane.showMessageDialog(
+							(Component) view,
+							"Input string contains characters not in Finite State Machines alphabet",
+							"Finite State Machine",
+							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				inputString = input;

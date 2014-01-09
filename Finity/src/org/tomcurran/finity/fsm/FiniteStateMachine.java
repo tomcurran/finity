@@ -85,8 +85,17 @@ public class FiniteStateMachine extends Observable {
 		return null;
 	}
 
-	public boolean inAlphabet(char c) {
-		return alphabet.indexOf(c) > -1;
+	public boolean inAlphabet(String inputString) {
+		for (char inputChar : inputString.toCharArray()) {
+			if (!inAlphabet(inputChar)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean inAlphabet(char inputChar) {
+		return alphabet.indexOf(inputChar) > -1;
 	}
 
 	public boolean isValid() {
