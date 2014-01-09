@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.QuadCurve2D;
 
+import org.tomcurran.finity.util.Geom;
+
 public class StandardArcConnect implements ArcConnect {
 
 	private static final int CONTROL_POINT_DISTANCE = 40;
@@ -19,15 +21,12 @@ public class StandardArcConnect implements ArcConnect {
 	public Point controlPoint() {
 		Point start = connection.startPoint();
 		Point end = connection.endPoint();
-		Point middle = new Point((start.x + end.x) / 2, (start.y + end.y) / 2);
-		Point perpend = new Point(end.y - start.y, -(end.x - start.x));
-		double perpendLen = Math.sqrt((perpend.x * perpend.x) + (perpend.y * perpend.y));
-		if (perpendLen == 0 ) {
+		Point middle = Geom.middle(start, end);
+		if (start.equals(end)) {
 			return middle;
+		} else {
+			return Geom.perpendicular(middle, end, CONTROL_POINT_DISTANCE);
 		}
-		return new Point(
-					(int) (middle.x + ((perpend.x / perpendLen) * CONTROL_POINT_DISTANCE)),
-					(int) (middle.y + ((perpend.y / perpendLen) * CONTROL_POINT_DISTANCE)));
 	}
 
 	@Override

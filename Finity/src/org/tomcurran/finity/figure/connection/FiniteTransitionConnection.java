@@ -72,17 +72,7 @@ public class FiniteTransitionConnection extends LineConnection {
 	@Override
 	public void endPoint(int x, int y) {
 		willChange();
-		Figure startFigure = startFigure();
-		Figure endFigure = endFigure();
-		if (startFigure != null && endFigure != null && startFigure == endFigure) {
-			if (!(arcConnect instanceof SelfArConnect)) {
-				arcConnect = new SelfArConnect(this);
-			}
-		} else {
-			if (!(arcConnect instanceof StandardArcConnect)) {
-				arcConnect = new StandardArcConnect(this);
-			}
-		}
+		ensureArcState();
 		Point end = new Point(x, y);
 		Point control = arcConnect.controlPoint();
 		if (fPoints.size() < 2) {
@@ -112,6 +102,20 @@ public class FiniteTransitionConnection extends LineConnection {
 			Point p3 = fPoints.elementAt(fPoints.size() - 2);
 			Point p4 = fPoints.elementAt(fPoints.size() - 1);
 			fEndDecoration.draw(g, p4.x, p4.y, p3.x, p3.y);
+		}
+	}
+
+	private void ensureArcState() {
+		Figure startFigure = startFigure();
+		Figure endFigure = endFigure();
+		if (startFigure != null && endFigure != null && startFigure == endFigure) {
+			if (!(arcConnect instanceof SelfArConnect)) {
+				arcConnect = new SelfArConnect(this);
+			}
+		} else {
+			if (!(arcConnect instanceof StandardArcConnect)) {
+				arcConnect = new StandardArcConnect(this);
+			}
 		}
 	}
 
