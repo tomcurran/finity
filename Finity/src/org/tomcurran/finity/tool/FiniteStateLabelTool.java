@@ -37,6 +37,9 @@ public class FiniteStateLabelTool extends LabelTextTool {
 		if (text == null || text.isEmpty()) {
 			return;
 		}
+		if (text.length() > 4) {
+			text = text.substring(0, 4);
+		}
 		stateFigure.setLabel(text);
 	}
 
