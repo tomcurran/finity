@@ -2,12 +2,12 @@ package org.tomcurran.finity.figure;
 
 import java.awt.Font;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.Vector;
 
 import org.tomcurran.finity.figure.connection.FiniteTransitionConnection;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.fsm.FiniteTransition;
+import org.tomcurran.finity.util.Geom;
 
 import CH.ifa.draw.figure.GroupFigure;
 import CH.ifa.draw.figure.TextFigure;
@@ -42,21 +42,12 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 	@Override
 	public void figureChanged(FigureChangeEvent e) {
 		if (e.getFigure() == connection) {
-			positionLabel();
+			Point controlPoint = connection.controlPoint();
+			if (controlPoint != null) {
+				labelFigure.displayBox(Geom.centreAt(controlPoint, labelFigure.displayBox()));
+			}
 		} else {
 			super.figureChanged(e);
-		}
-	}
-
-	private void positionLabel() {
-		Point controlPoint = connection.controlPoint();
-		if (controlPoint != null) {
-			Rectangle labelDisplayBox = labelFigure.displayBox();
-			final int halfLabelWidth = labelDisplayBox.width / 2;
-			final int halfLabelHeight = labelDisplayBox.height / 2;
-			labelFigure.displayBox(
-					new Point(controlPoint.x - halfLabelWidth, controlPoint.y - halfLabelHeight),
-					new Point(controlPoint.x + halfLabelWidth, controlPoint.y + halfLabelHeight));
 		}
 	}
 
