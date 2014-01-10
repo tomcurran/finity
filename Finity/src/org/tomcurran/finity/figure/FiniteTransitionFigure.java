@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.util.Vector;
 
 import org.tomcurran.finity.figure.connection.FiniteTransitionConnection;
+import org.tomcurran.finity.fsm.FiniteStateMachine;
 import org.tomcurran.finity.fsm.FiniteTransition;
 
 import CH.ifa.draw.figure.GroupFigure;
@@ -29,7 +30,10 @@ public class FiniteTransitionFigure extends GroupFigure implements ConnectionFig
 		labelFigure.setAttribute("FontName", Font.SANS_SERIF);
 		labelFigure.setAttribute("FontStyle", Font.BOLD);
 		labelFigure.setAttribute("FontSize", 16);
-		setLabel('1');
+		String alphabet = FiniteStateMachine.getInstance().getAlphabet();
+		if (alphabet.length() > 1) {
+			setLabel(alphabet.charAt(0));
+		}
 		add(connection);
 		add(labelFigure);
 		connection.addFigureChangeListener(this);

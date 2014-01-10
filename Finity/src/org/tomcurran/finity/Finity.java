@@ -31,7 +31,7 @@ public class Finity extends DrawApplication {
 
 	public Finity() {
 		super("Finity");
-		FiniteStateMachine.getInstance().setAlphabet("01");
+		FiniteStateMachine.getInstance().setAlphabet("10");
 	}
 
 	@Override

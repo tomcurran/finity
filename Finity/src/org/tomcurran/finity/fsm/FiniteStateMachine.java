@@ -30,6 +30,10 @@ public class FiniteStateMachine extends Observable {
 		this.alphabet = alphabet;
 	}
 
+	public String getAlphabet() {
+		return alphabet;
+	}
+
 	public FiniteState getStartState() {
 		return startState;
 	}
