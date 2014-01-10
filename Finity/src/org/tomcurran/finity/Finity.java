@@ -51,10 +51,10 @@ public class Finity extends DrawApplication {
 		palette.add(createToolButton(FINITE_IMAGES + "TRANSITION", "Finite Transition Tool", tool));
 
 		tool = new FiniteStateLabelTool(view());
-		palette.add(createToolButton(IMAGES + "TEXT", "Finite State Label Tool", tool));
+		palette.add(createToolButton(FINITE_IMAGES + "STATELABEL", "Finite State Label Tool", tool));
 
 		tool = new FiniteTransitionLabelTool(view());
-		palette.add(createToolButton(IMAGES + "TEXT", "Finite Transition Label Tool", tool));
+		palette.add(createToolButton(FINITE_IMAGES + "TRANSITIONLABEL", "Finite Transition Label Tool", tool));
 
 		tool = new AcceptStateTool(view());
 		palette.add(createToolButton(FINITE_IMAGES + "ACCEPTSTATE", "Accepting State Tool", tool));
