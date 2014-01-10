@@ -10,6 +10,7 @@ import java.util.Observer;
 import org.tomcurran.finity.connector.StateConnector;
 import org.tomcurran.finity.fsm.FiniteState;
 import org.tomcurran.finity.fsm.FiniteStateMachine;
+import org.tomcurran.finity.util.Geom;
 
 import CH.ifa.draw.figure.EllipseFigure;
 import CH.ifa.draw.figure.GroupFigure;
@@ -79,17 +80,7 @@ public class FiniteStateFigure extends GroupFigure implements FiniteState, Obser
 
 	public void setLabel(String label) {
 		labelFigure.setText(label);
-		positionLabel();
-	}
-
-	private void positionLabel() {
-		Point circleCentre = circleFigure.center();
-		Rectangle labelDisplayBox = labelFigure.displayBox();
-		final int halfLabelWidth = labelDisplayBox.width / 2;
-		final int halfLabelHeight = labelDisplayBox.height / 2;
-		labelFigure.displayBox(
-				new Point(circleCentre.x - halfLabelWidth, circleCentre.y - halfLabelHeight),
-				new Point(circleCentre.x + halfLabelWidth, circleCentre.y + halfLabelHeight));
+		labelFigure.displayBox(Geom.centreAt(circleFigure.center(), labelFigure.displayBox()));
 	}
 
 	public void setAccepting(boolean accepting) {

@@ -1,6 +1,7 @@
 package org.tomcurran.finity.util;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 public class Geom {
@@ -14,16 +15,15 @@ public class Geom {
 	}
 
 	public static Point perpendicular(Point start, Point end, int distance, boolean clockwise) {
-		return distance(start, normalise(negate(invert(diff(start, end)), clockwise)), distance);
+		return distance(start, negate(invert(diff(start, end)), clockwise), distance);
 	}
 
 	public static Point extend(Point start, Point end, int distance) {
-		return distance(end, normalise(diff(start, end)), distance);
+		return distance(end, diff(start, end), distance);
 	}
 
-	public static Point2D normalise(Point p) {
-		double norm = Math.sqrt((p.getX() * p.getX()) + (p.getY() * p.getY()));
-		return new Point2D.Double(p.getX() / norm, p.getY() / norm);
+	public static Rectangle centreAt(Point centre, Rectangle r) {
+		return new Rectangle(centre.x - (r.width / 2), centre.y - (r.height / 2), r.width, r.height);
 	}
 
 	private static Point diff(Point p1, Point p2) {
@@ -42,10 +42,16 @@ public class Geom {
 		}
 	}
 
-	private static Point distance(Point p, Point2D n, int distance) {
+	private static Point2D normalise(Point p) {
+		double norm = Math.sqrt((p.getX() * p.getX()) + (p.getY() * p.getY()));
+		return new Point2D.Double(p.getX() / norm, p.getY() / norm);
+	}
+
+	private static Point distance(Point p1, Point p2, int distance) {
+		Point2D n = normalise(p2);
 		return new Point(
-				(int)(p.x + (n.getX() * distance)),
-				(int)(p.y + (n.getY() * distance)));
+				(int)(p1.x + (n.getX() * distance)),
+				(int)(p1.y + (n.getY() * distance)));
 	}
 
 }
